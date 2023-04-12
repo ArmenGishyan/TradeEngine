@@ -3,7 +3,7 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
-project ("CQGTrade")
+project ("TradeEngine")
 
 # Include sub-projects.
-add_subdirectory ("CQGTrade")
+add_subdirectory ("src")
