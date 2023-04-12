@@ -3,7 +3,6 @@
 #include "utils.hpp"
 
 #include <regex>
-#include <iomanip>
 #include <iostream>
 
 void CommandEngine::registerCommand(CommandBasePtr command)
@@ -13,35 +12,31 @@ void CommandEngine::registerCommand(CommandBasePtr command)
 	}
 }
 
-void CommandEngine::executeString(std::string_view str)
+void CommandEngine::executeString(std::string_view str) const
 {
-	std::vector<std::string_view> viewsList = splitSV(str);
+	std::vector<std::string_view> viewsList = utils::splitSV(str);
 
-	const std::regex txt_regex("^T[0-9]+");
 	std::smatch base_match;
 
 	if (viewsList.empty()) return;
+
+	const std::string firstStr = std::string(viewsList[0]);
+	bool found = false;
+	for (const auto& [key, cmd] : _commandsList) {
+		if (std::regex_match(firstStr, base_match, cmd->regexToFind())) {
+			found = true;
+			try {
+				if (cmd->parseArgs(str)) {
+					cmd->execute();
+				}
+			}
+			catch (const std::exception& ex) {
+				std::cerr << ex.what() << std::endl;
+			}
+		}
+	}
 	
-	// rework here
-	const std::string val = std::string(viewsList[0]);
-	if (std::regex_match(val, base_match, txt_regex))
-	{
-		auto item = _commandsList.find("add_trade");
-		if (item != _commandsList.end()) {
-			if (item->second->parseArgs(str)) {
-				item->second->execute();
-			}
-		}
-	}
-	else if (viewsList[0] == "print_trades") {
-		auto item = _commandsList.find("print_trades");
-		if (item != _commandsList.end()) {
-			if (item->second->parseArgs(str)) {
-				item->second->execute();
-			}
-		}
-	}
-	else {
-		std::cout << "Command not found";
+	if (!found) {
+		std::cout << "Command not found" << std::endl;
 	}
 }

@@ -8,4 +8,5 @@ public:
 	bool execute() override;
 	bool parseArgs(std::string_view command) override;
 
+	std::regex regexToFind() const override;
 };

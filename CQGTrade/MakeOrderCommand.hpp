@@ -1,5 +1,4 @@
 #pragma once
-
 #include "CommandBase.hpp"
 #include "Prototypes.hpp"
 #include "OrderType.hpp"
@@ -9,6 +8,8 @@ public:
 	std::string name() const override;
 	bool execute() override;
 	bool parseArgs(std::string_view command) override;
+
+	std::regex regexToFind() const override;
 
 private:
 	size_t _quantity;

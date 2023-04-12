@@ -5,6 +5,7 @@
 
 class OrderBase {
 public:
+	virtual ~OrderBase() = default;
 	virtual size_t price() const = 0;
 	virtual Time_t dateCreated() const = 0;
 	virtual size_t quantity() const = 0;

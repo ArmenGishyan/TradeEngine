@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+
 
 #include "App.hpp"
 #include "CommandEngine.hpp"
@@ -15,7 +17,8 @@ void App::start() {
 	std::string str;
 
 	while (true) {
-		std::cin >> str;
+		std::getline(std::cin, str);
+
 		if (str == "exit") {
 			break;
 		}

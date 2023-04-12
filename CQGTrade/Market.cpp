@@ -13,12 +13,12 @@ std::shared_ptr<Market> Market::_instance = nullptr;
 void Market::placeOrder(OrderBasePtr aggressor) {
 	if (aggressor->type() == OrderType::Sell) {
 		// make sell case
-		processAgressor<OrderCompare<true>>(aggressor, _restingOrdersBuy);
+		processAggressor<utils::OrderCompare<false>>(aggressor, _restingOrdersBuy);
 
 	}
 	else if (aggressor->type() == OrderType::Buy) {
 		// buy 
-		processAgressor<OrderCompare<false>>(aggressor, _restingOrdersSell);
+		processAggressor<utils::OrderCompare<true>>(aggressor, _restingOrdersSell);
 	}
 }
 

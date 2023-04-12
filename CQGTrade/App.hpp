@@ -2,7 +2,6 @@
 #include <memory>
 #include "Prototypes.hpp"
 
-// remove include
 #include "CommandEngine.hpp"
 
 class App {
