@@ -2,7 +2,6 @@
 
 #include <set>
 #include <memory>
-#include <vector>
 #include <functional>
 
 #include "Prototypes.hpp"
@@ -24,7 +23,7 @@ void Market::placeOrder(OrderBasePtr aggressor) {
 
 std::shared_ptr<Market> Market::instance() {
 	if (!_instance)
-		_instance = std::make_shared<Market>();
+		_instance = std::shared_ptr<Market>(new Market);
 
 	return _instance;
 }

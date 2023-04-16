@@ -14,8 +14,12 @@ public:
 
 	std::vector<Trades> existingTrads() const;
 
+	Market(Market& other) = delete;
+
+	void operator=(const Market&) = delete;
+
 private:
-	//Market() = default;
+	Market() = default;
 
 	static std::shared_ptr<Market> _instance;
 
